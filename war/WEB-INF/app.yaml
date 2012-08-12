@@ -1,0 +1,32 @@
+application: ex-track
+version: 1
+runtime: java
+threadsafe: true
+
+context_params:
+  contextConfigLocation: classpath:service-context.xml
+  
+listeners:
+  - org.springframework.web.context.ContextLoaderListener
+
+static_files:
+  - include: resources/**
+  
+resource_files:
+  - exclude: resources/**
+
+web_xml: |
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+    
+inbound_services:
+  - warmup
+  
+sessions_enabled: true
