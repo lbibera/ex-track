@@ -25,4 +25,11 @@
 		<property name="suffix" value=".jsp"/>    
 	</bean>
 
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+		    <list>
+		        <value></value>
+		    </list>
+		</property>
+	</bean>
 </beans>
