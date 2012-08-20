@@ -6,3 +6,4 @@ war/WEB-INF/classes/**
 **.log**
 war/WEB-INF/web.xml
 war/WEB-INF/appengine-web.xml
+war/WEB-INF/appengine-generated/**
