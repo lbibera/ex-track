@@ -14,17 +14,12 @@ static_files:
   
 resource_files:
   - exclude: resources/**
-
-web_xml: |
-  <servlet>
-    <servlet-name>dispatcher</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>dispatcher</servlet-name>
-    <url-pattern>/</url-pattern>
-  </servlet-mapping>
+  
+handlers:
+  - url: /
+    servlet: org.springframework.web.servlet.DispatcherServlet
+    init_params:
+      contextConfigLocation: classpath:application-context.xml
     
 inbound_services:
   - warmup
