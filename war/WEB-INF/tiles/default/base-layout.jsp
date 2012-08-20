@@ -11,7 +11,7 @@
 <!-- stylesheets -->
 <tiles:insertAttribute name="stylesheets" />
 
-<link rel="icon" type="image/png" href="/resources/img/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.ico">
 
 <title><tiles:insertAttribute name="title" /></title>
 

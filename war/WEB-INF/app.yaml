@@ -10,10 +10,12 @@ listeners:
   - org.springframework.web.context.ContextLoaderListener
 
 static_files:
-  - include: resources/**
+  - include: /resources/**
+  - include: /favicon.ico
   
 resource_files:
-  - exclude: resources/**
+  - exclude: /resources/**
+  - exclude: /favicon.ico
   
 handlers:
   - url: /
