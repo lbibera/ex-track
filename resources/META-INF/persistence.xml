@@ -10,6 +10,11 @@
             <property name="datanucleus.NontransactionalRead" value="true"/>
             <property name="datanucleus.NontransactionalWrite" value="true"/>
             <property name="datanucleus.ConnectionURL" value="appengine"/>
+            <property name="datanucleus.singletonEMFForName" value="true"/>
         </properties>
+
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <class>com.petrichor.extrack.domain.AccountOwner</class>
+
     </persistence-unit>
 </persistence>

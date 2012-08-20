@@ -4,7 +4,7 @@ runtime: java
 threadsafe: true
 
 context_params:
-  contextConfigLocation: classpath:service-context.xml
+  contextConfigLocation: classpath:service-context.xml classpath:persistence-context.xml
   
 listeners:
   - org.springframework.web.context.ContextLoaderListener
