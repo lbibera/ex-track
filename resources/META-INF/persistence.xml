@@ -14,7 +14,10 @@
         </properties>
 
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        
         <class>com.petrichor.extrack.domain.AccountOwner</class>
+        <class>com.petrichor.extrack.domain.ExTrackAuthority</class>
+        <class>com.petrichor.extrack.domain.ExTrackUser</class>
 
     </persistence-unit>
 </persistence>
