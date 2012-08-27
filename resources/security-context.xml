@@ -17,6 +17,7 @@
 
     <http pattern="favicon.ico" security="none"/>
     <http pattern="/resources/**" security="none"/>
+    <http pattern="/_ah/**" security="none"/>
 	<http pattern="/register/**" security="none"/>
 
     <http auto-config="true">

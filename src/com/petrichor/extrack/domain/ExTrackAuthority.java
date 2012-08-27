@@ -72,5 +72,10 @@ public class ExTrackAuthority implements GrantedAuthority {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return String.format("ExTrackAuthority [%s]", authority);
+	}
 	
 }

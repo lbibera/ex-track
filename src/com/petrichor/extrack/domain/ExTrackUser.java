@@ -1,11 +1,16 @@
 package com.petrichor.extrack.domain;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
@@ -20,14 +25,15 @@ import com.google.appengine.api.datastore.Key;
  */
 @Entity
 @MappedSuperclass
-public abstract class ExTrackUser implements UserDetails {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public class ExTrackUser implements UserDetails {
 
 	private static final long serialVersionUID = -9081620973217780589L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key id;
-	
+
 	//authentication&authorization details
 	private String username; //TODO: should be unique
 	private String password;
@@ -37,10 +43,15 @@ public abstract class ExTrackUser implements UserDetails {
 	private boolean enabled = true;
 	
 	@OneToMany
-	private Collection<ExTrackAuthority> authorities;
+	@JoinTable(
+			name = "extrackuser_extrackauthority", 
+			joinColumns = @JoinColumn (name = "user_key"),
+			inverseJoinColumns = @JoinColumn(name = "authority_key")
+	)
+	private Set<ExTrackAuthority> authorities = new HashSet<ExTrackAuthority>();
 	
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
+	public Set<? extends GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 	
@@ -74,6 +85,10 @@ public abstract class ExTrackUser implements UserDetails {
 		return enabled;
 	}
 	
+	public Key getId() {
+		return id;
+	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
@@ -98,8 +113,12 @@ public abstract class ExTrackUser implements UserDetails {
 		this.enabled = enabled;
 	}
 
-	public void setAuthorities(Collection<ExTrackAuthority> authorities) {
-		this.authorities = authorities;
+	public void addAuthority(ExTrackAuthority authority) {
+		authorities.add(authority);
+	}
+	
+	public void removeAuthority(ExTrackAuthority authority) {
+		authorities.remove(authority);
 	}
 
 	@Override

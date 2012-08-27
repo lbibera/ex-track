@@ -6,13 +6,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.petrichor.extrack.dao.AccountOwnerDAO;
+import com.petrichor.extrack.dao.ExTrackUserDAO;
 
 @Service("userDetailsService")
 public class ExTrackUserDetailsService implements UserDetailsService {
 	
 	@Autowired
-	private AccountOwnerDAO accountOwnerDAO;
+	private ExTrackUserDAO accountOwnerDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
