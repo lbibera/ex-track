@@ -1,9 +1,6 @@
 package com.petrichor.extrack.domain;
 
-import javax.persistence.Entity;
-
-@Entity
-public class AccountOwner extends ExTrackUser {
+public class AccountOwner extends User {
 
 	private static final long serialVersionUID = -5780960983132025635L;
 

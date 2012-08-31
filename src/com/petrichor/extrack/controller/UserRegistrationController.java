@@ -26,10 +26,8 @@ public class UserRegistrationController {
 	
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String submitRegistrationForm(@ModelAttribute("form") UserRegistrationForm form, ModelMap model) {
-
 		AccountOwner newOwner = UserRegistrationForm.createAccount(form);
 		userRegistrationService.register(newOwner);
-		
 		return "register-success";
 	}
 	

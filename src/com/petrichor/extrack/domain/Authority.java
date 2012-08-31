@@ -1,21 +1,13 @@
 package com.petrichor.extrack.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import org.springframework.security.core.GrantedAuthority;
 
 import com.google.appengine.api.datastore.Key;
 
-@Entity
-public class ExTrackAuthority implements GrantedAuthority {
+public class Authority implements GrantedAuthority {
 
 	private static final long serialVersionUID = -5574670496359015664L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key id;
 	
 	private String authority;
@@ -42,6 +34,10 @@ public class ExTrackAuthority implements GrantedAuthority {
 		this.authority = authority;
 	}
 
+	public void setId(Key id) {
+		this.id = id;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -59,10 +55,10 @@ public class ExTrackAuthority implements GrantedAuthority {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof ExTrackAuthority)) {
+		if (!(obj instanceof Authority)) {
 			return false;
 		}
-		ExTrackAuthority other = (ExTrackAuthority) obj;
+		Authority other = (Authority) obj;
 		if (authority == null) {
 			if (other.authority != null) {
 				return false;

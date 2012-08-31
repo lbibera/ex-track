@@ -1,12 +1,12 @@
 package com.petrichor.extrack.dao;
 
 import com.petrichor.extrack.domain.AccountOwner;
-import com.petrichor.extrack.domain.ExTrackAuthority;
-import com.petrichor.extrack.domain.ExTrackUser;
+import com.petrichor.extrack.domain.Authority;
+import com.petrichor.extrack.domain.User;
 
 /**
  * responsible for retrieving and updating user-related objects.
- * this includes {@link ExTrackUser} and {@link ExTrackAuthority} as
+ * this includes {@link User} and {@link Authority} as
  * well as its descendants. 
  * @author lyndon
  */
@@ -17,14 +17,14 @@ public interface ExTrackUserDAO {
 	 * @param authority
 	 * @throws ExTrackDAOException when creation fails
 	 */
-	void create(ExTrackAuthority authority) throws ExTrackDAOException;
+	void create(Authority authority) throws ExTrackDAOException;
 	
 	/**
 	 * 
 	 * @param authority
 	 * @return
 	 */
-	ExTrackAuthority findByAuthority(String authority);
+	Authority findByAuthority(String authority);
 	
 	/**
 	 * 

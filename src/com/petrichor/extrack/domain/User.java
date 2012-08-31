@@ -3,18 +3,6 @@ package com.petrichor.extrack.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToMany;
-
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.google.appengine.api.datastore.Key;
@@ -23,15 +11,10 @@ import com.google.appengine.api.datastore.Key;
  * the base class for all authenticated users.
  * @author lyndon
  */
-@Entity
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class ExTrackUser implements UserDetails {
+public class User implements UserDetails {
 
 	private static final long serialVersionUID = -9081620973217780589L;
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key id;
 
 	//authentication&authorization details
@@ -42,16 +25,14 @@ public class ExTrackUser implements UserDetails {
 	private boolean credentialsExpired = false;
 	private boolean enabled = true;
 	
-	@OneToMany
-	@JoinTable(
-			name = "extrackuser_extrackauthority", 
-			joinColumns = @JoinColumn (name = "user_key"),
-			inverseJoinColumns = @JoinColumn(name = "authority_key")
-	)
-	private Set<ExTrackAuthority> authorities = new HashSet<ExTrackAuthority>();
+	private Set<Authority> authorities = new HashSet<Authority>();
 	
+	public void setId(Key id) {
+		this.id = id;
+	}
+
 	@Override
-	public Set<? extends GrantedAuthority> getAuthorities() {
+	public Set<Authority> getAuthorities() {
 		return authorities;
 	}
 	
@@ -113,11 +94,11 @@ public class ExTrackUser implements UserDetails {
 		this.enabled = enabled;
 	}
 
-	public void addAuthority(ExTrackAuthority authority) {
+	public void addAuthority(Authority authority) {
 		authorities.add(authority);
 	}
 	
-	public void removeAuthority(ExTrackAuthority authority) {
+	public void removeAuthority(Authority authority) {
 		authorities.remove(authority);
 	}
 
@@ -139,10 +120,10 @@ public class ExTrackUser implements UserDetails {
 		if (obj == null) {
 			return false;
 		}
-		if (!(obj instanceof ExTrackUser)) {
+		if (!(obj instanceof User)) {
 			return false;
 		}
-		ExTrackUser other = (ExTrackUser) obj;
+		User other = (User) obj;
 		if (id == null) {
 			if (other.id != null) {
 				return false;

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.petrichor.extrack.dao.ExTrackUserDAO;
 import com.petrichor.extrack.domain.AccountOwner;
-import com.petrichor.extrack.domain.ExTrackAuthority;
+import com.petrichor.extrack.domain.Authority;
 import com.petrichor.extrack.service.ExTrackServiceException;
 import com.petrichor.extrack.service.UserRegistrationService;
 
@@ -17,24 +17,26 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 
 	@Override
 	public void register(AccountOwner accountOwner) throws ExTrackServiceException {
+		Authority roleUser = findOrCreate("ROLE_USER");
+		Authority roleOwner = findOrCreate("ROLE_OWNER");
 
-		ExTrackAuthority roleUser = findOrCreate("ROLE_USER");
-		ExTrackAuthority roleOwner = findOrCreate("ROLE_OWNER");
-		
 		accountOwner.addAuthority(roleUser);
 		accountOwner.addAuthority(roleOwner);
-		
-//		userDAO.update(accountOwner);
 		
 		userDAO.create(accountOwner);
 	}
 	
-	private ExTrackAuthority findOrCreate(String authority) {
-		ExTrackAuthority auth = userDAO.findByAuthority(authority);
+	private Authority findOrCreate(String authority) {
+		Authority auth = userDAO.findByAuthority(authority);
 		
 		if(auth == null) {
-			ExTrackAuthority a = new ExTrackAuthority();
+			Authority a = new Authority();
 			a.setAuthority(authority);
+			if(authority.equals("ROLE_USER")) {
+				a.setDisplay("User");
+			} else {
+				a.setDisplay("Owner");
+			}
 			userDAO.create(a);
 		}
 		
