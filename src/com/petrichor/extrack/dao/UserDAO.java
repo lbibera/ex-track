@@ -10,7 +10,7 @@ import com.petrichor.extrack.domain.User;
  * well as its descendants. 
  * @author lyndon
  */
-public interface ExTrackUserDAO {
+public interface UserDAO {
 
 	/**
 	 * creates a new authority

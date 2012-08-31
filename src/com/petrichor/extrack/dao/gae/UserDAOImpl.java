@@ -9,13 +9,13 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.petrichor.extrack.dao.ExTrackDAOException;
-import com.petrichor.extrack.dao.ExTrackUserDAO;
+import com.petrichor.extrack.dao.UserDAO;
 import com.petrichor.extrack.domain.AccountOwner;
 import com.petrichor.extrack.domain.Authority;
 import com.petrichor.extrack.domain.User;
 
 @Repository
-public class ExTrackUserDAOImpl implements ExTrackUserDAO {
+public class UserDAOImpl implements UserDAO {
 	
 	private DatastoreService dataStore = DatastoreServiceFactory.getDatastoreService();
 
