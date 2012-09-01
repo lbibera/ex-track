@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
@@ -55,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
 		accountOwner.setId(dataStore.put(accountOwnerEntity));
 
 		for(Authority a : accountOwner.getAuthorities()) {
-			Entity mapper = new Entity(AccountOwner.class.getSimpleName()+"_authorities");
+			Entity mapper = new Entity(User.class.getSimpleName()+"_authorities");
 			
 			mapper.setProperty(User.class.getSimpleName() + "_id", accountOwner.getId());
 			mapper.setProperty(Authority.class.getSimpleName() + "_id", a.getId());
@@ -79,16 +80,22 @@ public class UserDAOImpl implements UserDAO {
 			copyFields(accountOwnerEntity, accountOwner);
 			accountOwner.setId(accountOwnerEntity.getKey());
 			
-			q = new Query(Authority.class.getSimpleName());
+			q = new Query(User.class.getSimpleName()+"_authorities");
 			q.setFilter(new Query.FilterPredicate(User.class.getSimpleName() + "_id", Query.FilterOperator.EQUAL, accountOwner.getId()));
 			pq = dataStore.prepare(q);
 			
-			for(Entity authorityEntity : pq.asIterable()) {
+			for(Entity mapper : pq.asIterable()) {
 				Authority authority = new Authority();
-				copyFields(authorityEntity, authority);
-				authority.setId(authorityEntity.getKey());
 				
-				accountOwner.addAuthority(authority);
+				Entity authorityEntity;
+				try {
+					authorityEntity = dataStore.get((Key) mapper.getProperty(Authority.class.getSimpleName() + "_id"));
+					copyFields(authorityEntity, authority);
+					authority.setId(authorityEntity.getKey());
+					accountOwner.addAuthority(authority);
+				} catch (EntityNotFoundException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		

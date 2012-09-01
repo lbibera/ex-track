@@ -41,4 +41,14 @@ public class AccountOwner extends User {
 		this.lastName = lastName;
 	}
 
+	@Override
+	public String toString() {
+		return String
+				.format("AccountOwner [screenName=%s, firstName=%s, middleName=%s, lastName=%s, getAuthorities()=%s, getUsername()=%s, getPassword()=%s, isAccountNonExpired()=%s, isAccountNonLocked()=%s, isCredentialsNonExpired()=%s, isEnabled()=%s, getId()=%s]",
+						screenName, firstName, middleName, lastName,
+						getAuthorities(), getUsername(), getPassword(),
+						isAccountNonExpired(), isAccountNonLocked(),
+						isCredentialsNonExpired(), isEnabled(), getId());
+	}
+
 }

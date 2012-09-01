@@ -71,7 +71,8 @@ public class Authority implements GrantedAuthority {
 
 	@Override
 	public String toString() {
-		return String.format("ExTrackAuthority [%s]", authority);
+		return String.format("Authority [id=%s, authority=%s, display=%s]", id,
+				authority, display);
 	}
-	
+
 }
